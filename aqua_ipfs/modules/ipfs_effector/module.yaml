@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=../../../../fluence-test/testnew/.fluence/schemas/module.json
+version: 0
+
+name: ipfs_effector
+
+mountedBinaries:
+  ipfs: /usr/bin/ipfs

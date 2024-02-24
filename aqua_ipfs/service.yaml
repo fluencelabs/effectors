@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../../fluence-test/testnew/.fluence/schemas/service.json
+version: 0
+
+name: aqua_ipfs
+
+modules:
+  facade:
+    get: modules/ipfs_pure
+  ipfs_effector:
+    get: modules/ipfs_effector
