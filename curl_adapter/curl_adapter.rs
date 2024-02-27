@@ -1,0 +1,148 @@
+#![allow(improper_ctypes)]
+#![allow(non_snake_case)]
+
+use eyre::{Result, ErrReport};
+use std::fmt;
+use marine_rs_sdk::marine;
+use marine_rs_sdk::module_manifest;
+use marine_rs_sdk::MountedBinaryResult;
+use marine_rs_sdk::WasmLoggerBuilder;
+
+use itertools::Itertools;
+
+module_manifest!();
+
+const CONNECT_TIMEOUT: usize = 5;
+
+pub fn main() {
+    WasmLoggerBuilder::new()
+        .with_log_level(log::LevelFilter::Info)
+        .build()
+        .unwrap();
+}
+
+fn run_curl(cmd: Vec<String>) -> Result<String> {
+    let result = curl(cmd.clone());
+
+    result
+        .into_std()
+        .ok_or(eyre::eyre!(
+            "stdout or stderr contains non valid UTF8 string"
+        ))?
+        .map_err(|e| eyre::eyre!("curl cli call failed \n{:?}: {}", cmd.iter().join(" "), e))
+}
+
+#[marine]
+pub struct Header {
+	name: String,
+    value: String
+}
+
+impl fmt::Display for Header {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}: {}", self.name, self.value)
+    }
+}
+
+#[marine]
+pub struct CurlRequest {
+    pub url: String,
+    pub headers: Vec<Header>,
+	pub output_vault_path: String
+}
+
+#[marine]
+pub struct CurlResult {
+    success: bool,
+    // MountedBinaryResult::error
+    error: String,
+}
+
+impl From<Result<String, ErrReport>> for CurlResult {
+    fn from(res: Result<String, ErrReport>) -> Self {
+        match res {
+            Ok(_) => CurlResult { success: true, error: String::new() },
+            Err(err) => CurlResult { success: false, error: err.to_string() },
+        }
+    }
+}
+
+// 
+// curl <url> -X POST 
+//      --data @<data_vault_path> 
+//      -H <headers[0]> -H <headers[1]> -H ... 
+//      -o <output_vault_path>
+//      --connect-timeout 5 # todo: choose the constant 
+//      --no-progress-meter
+//      --retry 0
+#[marine]
+pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
+    let mut headers = String::new();
+
+    for header in &request.headers {
+        let formatted = format!("-H {} ", header);
+        headers.push_str(&formatted);
+    }
+    
+    let args = vec![
+        String::from(request.url),
+        String::from("-X"),
+        String::from("POST"),
+        String::from("--data"),
+        format!("@{}", data_vault_path),
+        String::from(headers),
+        String::from("-o"),
+        inject_vault_host_path(request.output_vault_path),
+        format!("--connect-timeout {}s", CONNECT_TIMEOUT),
+        String::from("--no-progress-meter"),
+        String::from("--retry 0"),
+    ];
+    run_curl(args).map(|res| res.trim().to_string()).into()
+}
+
+// curl <url> -X GET
+//      -H <headers[0]> -H <headers[1]> -H ... 
+//      -o <output_vault_path>
+//      --connect-timeout <connect-timeout>
+//      --no-progress-meter
+//      --retry 0
+#[marine]
+pub fn curl_get(request: CurlRequest) -> CurlResult {
+    let mut headers = String::new();
+
+    for header in &request.headers {
+        let formatted = format!("-H {} ", header);
+        headers.push_str(&formatted);
+    }
+    
+    let args = vec![
+        String::from(request.url),
+        String::from("-X"),
+        String::from("GET"),
+        String::from(headers),
+        String::from("-o"),
+        inject_vault_host_path(request.output_vault_path),
+        format!("--connect-timeout {}s", CONNECT_TIMEOUT),
+        String::from("--no-progress-meter"),
+        String::from("--retry 0"),
+    ];
+    run_curl(args).map(|res| res.trim().to_string()).into()
+}
+
+#[marine]
+#[link(wasm_import_module = "host")]
+extern "C" {
+    /// Execute provided cmd as a parameters of ipfs cli, return result.
+    pub fn curl(cmd: Vec<String>) -> MountedBinaryResult;
+}
+
+// to map the virtual particle vault path to the real path 
+fn inject_vault_host_path(path: String) -> String {
+    let vault = "/tmp/vault";
+    if let Some(stripped) = path.strip_prefix(&vault) {
+        let host_vault_path = std::env::var(vault).expect("vault must be mapped to /tmp/vault");
+        format!("/{}/{}", host_vault_path, stripped)
+    } else {
+        path
+    }
+}
