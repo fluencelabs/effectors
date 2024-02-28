@@ -77,21 +77,21 @@ impl From<Result<String, ErrReport>> for CurlResult {
 //      --retry 0
 #[marine]
 pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
-    let mut headers = String::new();
+    let mut headers = Vec::new();
 
     for header in &request.headers {
-        let formatted = format!("-H {} ", header);
-        headers.push_str(&formatted);
+        //let formatted = format!("-H {}", header);
+        headers.push("-H".to_string());
+        headers.push(format!("{}", header))
     }
     
-    let args = vec![
+    let mut args = vec![
         String::from(request.url),
         String::from("-X"),
         String::from("POST"),
         String::from("--data"),
         format!("@{}", data_vault_path),
         // String::from(data_vault_path),
-        String::from(headers),
         String::from("-o"),
         inject_vault_host_path(request.output_vault_path),
         format!("--connect-timeout"),
@@ -100,6 +100,7 @@ pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
         String::from("--retry"),
         String::from("0"),
     ];
+    args.append(&mut headers);
     run_curl(args).map(|res| res.trim().to_string()).into()
 }
 
@@ -111,26 +112,27 @@ pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
 //      --retry 0
 #[marine]
 pub fn curl_get(request: CurlRequest) -> CurlResult {
-    let mut headers = String::new();
+    let mut headers = Vec::new();
 
     for header in &request.headers {
-        let formatted = format!("-H {}", header);
-        headers.push_str(&formatted);
+        //let formatted = format!("-H {}", header);
+        headers.push("-H".to_string());
+        headers.push(format!("{}", header))
     }
-    
-    let args = vec![
+
+    let mut args = vec![
         String::from(request.url),
         String::from("-X"),
         String::from("GET"),
-        String::from(headers),
         String::from("-o"),
         inject_vault_host_path(request.output_vault_path),
         format!("--connect-timeout"),
-        format!("{}",CONNECT_TIMEOUT),
+        format!("{}", CONNECT_TIMEOUT),
         String::from("--no-progress-meter"),
         String::from("--retry"),
         String::from("0"),
     ];
+    args.append(&mut headers);
     run_curl(args).map(|res| res.trim().to_string()).into()
 }
 
@@ -155,9 +157,18 @@ fn inject_vault_host_path(path: String) -> String {
 #[cfg(test)]
 mod tests {
     use marine_rs_sdk_test::marine_test;
+    use tempdir::TempDir;
+    use std::path::Path;
+    use std::fs::File;
+    use system_interface::io::IoExt;
+    use std::io::{self, Write};
     #[marine_test(config_path = "../Config.toml")]
     fn test_curl_post(curl: marine_test_env::curl_adapter::ModuleInterface) {
-    let _ = env_logger::try_init();
+        let _ = ::env_logger::builder()
+        .filter_level(log::LevelFilter::Debug)
+        .filter_module("mockito", log::LevelFilter::Debug)
+        .is_test(true)
+        .try_init();
     let mut server = mockito::Server::new();
     let url = server.url();
     
@@ -166,15 +177,23 @@ mod tests {
       .expect(1)
       .with_status(200)
       .with_header("content-type", "application/json")
-      .with_body("word")
+      .match_body("input")
       .create();
+
+      let tmp_dir = TempDir::new("tmp").unwrap();
+      let file_path_input = tmp_dir.path().join("input.json");
+      let mut tmp_file_input = File::create(file_path_input.clone());
+      writeln!(tmp_file_input.unwrap(), "input");
+
+      let file_path_output = tmp_dir.path().join("output.json");
+      let mut tmp_file_output = File::create(file_path_output.clone());
 
     let input_request = marine_test_env::curl_adapter::CurlRequest {
     url: url.clone(),
     headers: vec![marine_test_env::curl_adapter::Header{name: "content-type".to_string(),value: "application/json".to_string()}],
-    output_vault_path: "/tmp/output.json".to_string(),
+    output_vault_path: format!("{}", file_path_output.display()),
     };
-    let result = curl.curl_post(input_request, "/tmp/upload.json".to_string());
+    let result = curl.curl_post(input_request, format!("{}", file_path_input.display()));
     
     assert!(result.success, "error: {}", result.error);
     mock.assert();
@@ -182,7 +201,11 @@ mod tests {
 
     #[marine_test(config_path = "../Config.toml")]
     fn test_curl_get(curl: marine_test_env::curl_adapter::ModuleInterface) {
-    let _ = env_logger::try_init();
+    let _ = ::env_logger::builder()
+        .filter_level(log::LevelFilter::Debug)
+        .filter_module("mockito", log::LevelFilter::Debug)
+        .is_test(true)
+        .try_init();
     let mut server = mockito::Server::new();
     let url = server.url();
     println!("{}", url);
@@ -192,14 +215,21 @@ mod tests {
       .expect(1)
       .with_status(200)
       .with_header("content-type", "application/json")
-      .with_body("word")
+      .with_body("input")
       .create();
     
-    std::thread::sleep(std::time::Duration::from_secs(10000));
+    let tmp_dir = TempDir::new("tmp").unwrap();
+    let file_path_input = tmp_dir.path().join("input.json");
+    let mut tmp_file_input = File::create(file_path_input.clone());
+    writeln!(tmp_file_input.unwrap(), "input");
+
+    let file_path_output = tmp_dir.path().join("output.json");
+    let mut tmp_file_output = File::create(file_path_output.clone());
+
     let input_request = marine_test_env::curl_adapter::CurlRequest {
     url: url.clone(),
     headers: vec![marine_test_env::curl_adapter::Header{name: "content-type".to_string(),value: "application/json".to_string()}],
-    output_vault_path: "/tmp/output.json".to_string(),
+    output_vault_path: format!("{}", file_path_output.display()),
     };
     let result = curl.curl_get(input_request);
     
