@@ -1,11 +1,12 @@
 #![allow(improper_ctypes)]
 #![allow(non_snake_case)]
 
-use eyre::{Result, ErrReport};
+use eyre::Result;
 use marine_rs_sdk::marine;
 use marine_rs_sdk::module_manifest;
 use marine_rs_sdk::MountedBinaryResult;
 use marine_rs_sdk::WasmLoggerBuilder;
+use ipfs_effector_types::{IpfsAddResult, IpfsResult};
 
 use itertools::Itertools;
 
@@ -32,51 +33,6 @@ fn run_ipfs(cmd: Vec<String>) -> Result<String> {
             "stdout or stderr contains non valid UTF8 string"
         ))?
         .map_err(|e| eyre::eyre!("ipfs cli call failed \n{:?}: {}", cmd.iter().join("  "), e))
-}
-
-#[marine]
-pub struct IpfsResult {
-    pub success: bool,
-    pub error: String,
-}
-
-impl From<Result<()>> for IpfsResult {
-    fn from(result: Result<()>) -> Self {
-        match result {
-            Ok(_) => Self {
-                success: true,
-                error: "".to_string(),
-            },
-            Err(err) => Self {
-                success: false,
-                error: err.to_string(),
-            },
-        }
-    }
-}
-
-#[marine]
-pub struct IpfsAddResult {
-    pub success: bool,
-    pub error: String,
-    pub hash: String,
-}
-
-impl From<Result<String, ErrReport>> for IpfsAddResult {
-    fn from(result: Result<String, ErrReport>) -> Self {
-        match result {
-            Ok(hash) => Self {
-                success: true,
-                error: "".to_string(),
-                hash: hash,
-            },
-            Err(err) => Self {
-                success: false,
-                error: err.to_string(),
-                hash: "".to_string(),
-            },
-        }
-    }
 }
 
 fn make_cmd_args(args: Vec<String>, api_multiaddr: String) -> Vec<String> {
@@ -131,7 +87,7 @@ pub fn get(api_multiaddr: String, cid: String, output_vault_path: &str) -> IpfsR
 }
 
 #[marine]
-#[link(wasm_import_module = "host")]
+#[host_import]
 extern "C" {
     /// Execute provided cmd as a parameters of ipfs cli, return result.
     pub fn ipfs(cmd: Vec<String>) -> MountedBinaryResult;
