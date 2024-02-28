@@ -1,0 +1,17 @@
+[package]
+name = "curl_adapter"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "curl_adapter"
+path = "src/curl_adapter.rs"
+
+[dependencies]
+eyre = "0.6.12"
+itertools = "0.12.1"
+log = "0.4.20"
+marine-rs-sdk = "0.10.1"
+
+[dev-dependencies]
+marine-rs-sdk-test = "0.12.0"
