@@ -7,4 +7,3 @@ edition = "2021"
 
 [dependencies]
 marine-rs-sdk = { workspace = true }
-eyre = { workspace = true }
