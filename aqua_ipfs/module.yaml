@@ -1,0 +1,8 @@
+version: 0
+
+# type: rust
+
+name: aqua_ipfs_adapter
+
+mountedBinaries:
+  curl: /usr/bin/ipfs
