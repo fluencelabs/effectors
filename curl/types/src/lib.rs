@@ -41,7 +41,7 @@ impl <E: ToString> From<Option<E>> for CurlResult {
 }
 
 #[marine]
-#[module_import("sqlite3")]
+#[module_import("curl-effector")]
 extern "C" {
     pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult;
 
