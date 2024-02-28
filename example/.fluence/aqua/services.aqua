@@ -1,0 +1,5 @@
+aqua Services declares *
+
+
+service MyRPC("myRPC"):
+  greeting(name: string) -> string
