@@ -2,7 +2,7 @@ modules_dir = "target/wasm32-wasi/release/"
 total_memory_limit = "Infinity"
 
 [[module]]
-    name = "curl_adapter"
+    name = "curl_effector"
     logger_enabled = true
         [module.mapped_dirs]
         mp = "/tmp"

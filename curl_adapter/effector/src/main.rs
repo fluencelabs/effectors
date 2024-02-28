@@ -1,12 +1,12 @@
 #![allow(improper_ctypes)]
 #![allow(non_snake_case)]
 
-use eyre::{ErrReport, Result};
+use eyre::Result;
 use marine_rs_sdk::marine;
 use marine_rs_sdk::module_manifest;
 use marine_rs_sdk::MountedBinaryResult;
 use marine_rs_sdk::WasmLoggerBuilder;
-use std::fmt;
+use curl_effector_types::*;
 
 use itertools::Itertools;
 
@@ -41,44 +41,13 @@ fn run_curl(mut cmd: Vec<String>) -> Result<String> {
         .map_err(|e| eyre::eyre!("curl cli call failed \n{:?}: {}", cmd.iter().join(" "), e))
 }
 
-#[marine]
-pub struct Header {
-    name: String,
-    value: String,
-}
-
-impl fmt::Display for Header {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}: {}", self.name, self.value)
+fn format_header_args(headers: &[HttpHeader]) -> Vec<String> {
+    let mut result = Vec::new();
+    for header in headers {
+        result.push("-H".to_string());
+        result.push(format!("{}: {}", header.name, header.value))
     }
-}
-
-#[marine]
-pub struct CurlRequest {
-    pub url: String,
-    pub headers: Vec<Header>,
-    pub output_vault_path: String,
-}
-
-#[marine]
-pub struct CurlResult {
-    success: bool,
-    error: String,
-}
-
-impl From<Result<String, ErrReport>> for CurlResult {
-    fn from(res: Result<String, ErrReport>) -> Self {
-        match res {
-            Ok(_) => CurlResult {
-                success: true,
-                error: String::new(),
-            },
-            Err(err) => CurlResult {
-                success: false,
-                error: err.to_string(),
-            },
-        }
-    }
+    result
 }
 
 //
@@ -91,13 +60,6 @@ impl From<Result<String, ErrReport>> for CurlResult {
 //      --retry 0
 #[marine]
 pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
-    let mut headers = Vec::new();
-
-    for header in &request.headers {
-        headers.push("-H".to_string());
-        headers.push(format!("{}", header))
-    }
-
     let mut args = vec![
         String::from(request.url),
         String::from("-X"),
@@ -107,6 +69,7 @@ pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
         String::from("-o"),
         inject_vault_host_path(request.output_vault_path),
     ];
+    let mut headers = format_header_args(&request.headers);
     args.append(&mut headers);
     run_curl(args).map(|res| res.trim().to_string()).into()
 }
@@ -119,13 +82,6 @@ pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
 //      --retry 0
 #[marine]
 pub fn curl_get(request: CurlRequest) -> CurlResult {
-    let mut headers = Vec::new();
-
-    for header in &request.headers {
-        headers.push("-H".to_string());
-        headers.push(format!("{}", header))
-    }
-
     let mut args = vec![
         String::from(request.url),
         String::from("-X"),
@@ -133,6 +89,7 @@ pub fn curl_get(request: CurlRequest) -> CurlResult {
         String::from("-o"),
         inject_vault_host_path(request.output_vault_path),
     ];
+    let mut headers = format_header_args(&request.headers);
     args.append(&mut headers);
     run_curl(args).map(|res| res.trim().to_string()).into()
 }
@@ -162,7 +119,7 @@ mod tests {
     use std::io::Write;
     use tempdir::TempDir;
 
-    #[marine_test(config_path = "../Config.toml")]
+    #[marine_test(config_path = "../../Config.toml")]
     fn test_curl_post(curl: marine_test_env::curl_adapter::ModuleInterface) {
         let _ = ::env_logger::builder()
             .filter_level(log::LevelFilter::Debug)
@@ -209,7 +166,7 @@ mod tests {
         mock.assert();
     }
 
-    #[marine_test(config_path = "../Config.toml")]
+    #[marine_test(config_path = "../../Config.toml")]
     fn test_curl_get(curl: marine_test_env::curl_adapter::ModuleInterface) {
         let _ = ::env_logger::builder()
             .filter_level(log::LevelFilter::Debug)

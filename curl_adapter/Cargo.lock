@@ -156,6 +156,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "built"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "38d17f4d6e4dc36d1a02fbedc2753a096848e7c1b0772f7654eab8e2c927dd53"
+
+[[package]]
 name = "bumpalo"
 version = "3.15.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -477,9 +483,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "curl_adapter"
+name = "curl-effector"
 version = "0.1.0"
 dependencies = [
+ "curl-effector-types",
  "env_logger",
  "eyre",
  "itertools 0.12.1",
@@ -488,6 +495,21 @@ dependencies = [
  "marine-rs-sdk-test",
  "mockito",
  "tempdir",
+]
+
+[[package]]
+name = "curl-effector-cid"
+version = "0.1.0"
+dependencies = [
+ "built",
+]
+
+[[package]]
+name = "curl-effector-types"
+version = "0.1.0"
+dependencies = [
+ "eyre",
+ "marine-rs-sdk",
 ]
 
 [[package]]
