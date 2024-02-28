@@ -39,3 +39,11 @@ impl <E: ToString> From<Option<E>> for CurlResult {
         }
     }
 }
+
+#[marine]
+#[module_import("sqlite3")]
+extern "C" {
+    pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult;
+
+    pub fn curl_get(request: CurlRequest) -> CurlResult;
+}
