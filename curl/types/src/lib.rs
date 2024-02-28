@@ -13,6 +13,7 @@ pub struct CurlRequest {
     pub output_vault_path: String,
 }
 
+#[derive(Debug)]
 #[marine]
 pub struct CurlResult {
     pub success: bool,
