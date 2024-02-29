@@ -46,6 +46,13 @@ pub fn simple_get_ipfs(ipfs_api: String, cid: String) -> String {
     }
 }
 
+
+// Since all effectors are working via the Particle Vault, you need to provide a correct path to the vault.
+// At the moment, we don't have any nice library for this sort of things, so you need to do it manually.
+//
+// Here we need to create a path to the vault which has a form of `/tmp/vault/{particle-id}-{particle-token}`.
+// In this directory, you can freely write and read any files you need. Note that this directory exists only when
+// a particle that called the function exsits, so you'll see here a different path each run.
 fn vault_path(filename: &str) -> String {
     let cp = marine_rs_sdk::get_call_parameters();
     format!("/tmp/vault/{}-{}/{}", cp.particle.id, cp.particle.token, filename)

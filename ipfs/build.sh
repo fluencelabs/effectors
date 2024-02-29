@@ -5,13 +5,13 @@ set -o errexit -o nounset -o pipefail
 cd "$(dirname "$0")"
 
 # This script builds all subprojects and puts all created Wasm modules in one dir
-pushd effector
+cd effector
 marine build --release
-popd
+cd ..
 
 mkdir -p cid/output
 rm -f cid/output/*
 ipfs add --only-hash -Q --cid-version 1 --hash sha2-256 --chunker=size-262144 target/wasm32-wasi/release/ipfs_effector.wasm | tee cid/output/cidv1
 
-pushd cid
+cd cid
 cargo build --release
