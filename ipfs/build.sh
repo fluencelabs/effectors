@@ -11,7 +11,7 @@ popd
 
 mkdir -p cid/output
 rm -f cid/output/*
-ipfs add --only-hash -Q --cid-version 1 --hash sha2-256 --chunker=size-262144 target/wasm32-wasi/release/ipfs-effector.wasm > cid/output/cidv1
+ipfs add --only-hash -Q --cid-version 1 --hash sha2-256 --chunker=size-262144 target/wasm32-wasi/release/ipfs_effector.wasm | tee cid/output/cidv1
 
 pushd cid
 cargo build --release

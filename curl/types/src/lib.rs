@@ -42,7 +42,7 @@ impl <E: ToString> From<Option<E>> for CurlResult {
 }
 
 #[marine]
-#[module_import("curl-effector")]
+#[module_import("curl_effector")]
 extern "C" {
     pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult;
 

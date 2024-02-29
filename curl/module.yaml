@@ -2,7 +2,7 @@ version: 0
 
 # type: rust
 
-name: curl-effector
+name: curl_effector
 
 mountedBinaries:
   curl: /usr/bin/curl

@@ -7,7 +7,7 @@ members = [
 ]
 [workspace.dependencies]
 ipfs-effector-types = { path = "types" }
-ipfs-effector = { path = "effector" }
+ipfs_effector = { path = "effector" }
 ipfs-cid = { path = "cid" }
 
 marine-rs-sdk = { version = "0.14.0", features = ["logger"] }

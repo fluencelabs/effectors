@@ -7,7 +7,7 @@ members = [
 ]
 [workspace.dependencies]
 curl-effector-types = { path = "types" }
-curl-effector = { path = "effector" }
+curl_effector = { path = "effector" }
 curl-cid = { path = "cid" }
 
 marine-rs-sdk = { version = "0.14.0", features = ["logger"] }
