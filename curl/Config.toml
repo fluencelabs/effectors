@@ -4,4 +4,5 @@ total_memory_limit = "Infinity"
 [[module]]
     name = "curl_effector"
     logger_enabled = true
-    mounted_binaries = { curl = "/usr/bin/curl" }
+    [module.mounted_binaries]
+    curl = "/usr/bin/curl"

@@ -41,6 +41,7 @@ impl <E: ToString> From<Option<E>> for CurlResult {
     }
 }
 
+/*
 #[marine]
 #[module_import("curl_effector")]
 extern "C" {
@@ -48,3 +49,4 @@ extern "C" {
 
     pub fn curl_get(request: CurlRequest) -> CurlResult;
 }
+*/

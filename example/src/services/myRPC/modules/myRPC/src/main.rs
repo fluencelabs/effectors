@@ -4,8 +4,8 @@ use std::path::Path;
 use marine_rs_sdk::marine;
 use marine_rs_sdk::module_manifest;
 
-use curl_effector_types as curl;
-use curl_effector_types::CurlRequest;
+use curl_effector_imports as curl;
+use curl_effector_imports::CurlRequest;
 module_manifest!();
 
 pub fn main() {}

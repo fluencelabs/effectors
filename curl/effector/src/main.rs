@@ -120,11 +120,11 @@ mod tests {
     use tempdir::TempDir;
 
     #[marine_test(config_path = "../../Config.toml")]
-    fn test_curl_post(curl: marine_test_env::curl_adapter::ModuleInterface) {
+    fn test_curl_post(curl: marine_test_env::curl_effector::ModuleInterface) {
         let _ = ::env_logger::builder()
             .filter_level(log::LevelFilter::Debug)
             .filter_module("mockito", log::LevelFilter::Debug)
-            .filter_module("curl_adapter", log::LevelFilter::Debug)
+            .filter_module("curl_effector", log::LevelFilter::Debug)
             .filter_module("wasmer_interface_types_fl", log::LevelFilter::Off)
             .is_test(true)
             .try_init();
@@ -149,9 +149,9 @@ mod tests {
 
         let file_path_output = tmp_dir.path().join("output.json");
 
-        let input_request = marine_test_env::curl_adapter::CurlRequest {
+        let input_request = marine_test_env::curl_effector::CurlRequest {
             url: url.clone(),
-            headers: vec![marine_test_env::curl_adapter::Header {
+            headers: vec![marine_test_env::curl_effector::HttpHeader {
                 name: "content-type".to_string(),
                 value: "application/json".to_string(),
             }],
@@ -167,11 +167,11 @@ mod tests {
     }
 
     #[marine_test(config_path = "../../Config.toml")]
-    fn test_curl_get(curl: marine_test_env::curl_adapter::ModuleInterface) {
+    fn test_curl_get(curl: marine_test_env::curl_effector::ModuleInterface) {
         let _ = ::env_logger::builder()
             .filter_level(log::LevelFilter::Debug)
             .filter_module("mockito", log::LevelFilter::Debug)
-            .filter_module("curl_adapter", log::LevelFilter::Debug)
+            .filter_module("curl_effector", log::LevelFilter::Debug)
             .filter_module("wasmer_interface_types_fl", log::LevelFilter::Off)
             .is_test(true)
             .try_init();
@@ -191,9 +191,9 @@ mod tests {
         let tmp_dir = TempDir::new("tmp").unwrap();
         let file_path_output = tmp_dir.path().join("output.json");
 
-        let input_request = marine_test_env::curl_adapter::CurlRequest {
+        let input_request = marine_test_env::curl_effector::CurlRequest {
             url: url.clone(),
-            headers: vec![marine_test_env::curl_adapter::Header {
+            headers: vec![marine_test_env::curl_effector::HttpHeader {
                 name: "content-type".to_string(),
                 value: "application/json".to_string(),
             }],
