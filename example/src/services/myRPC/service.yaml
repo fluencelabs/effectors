@@ -13,3 +13,5 @@ modules:
     get: modules/myRPC
   curl_effector:
     get: modules/curl_effector/
+  ipfs_effector:
+    get: modules/ipfs_effector/

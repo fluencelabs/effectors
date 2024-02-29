@@ -18,30 +18,50 @@ export helloWorld, helloWorldRemote, getInfo, getInfos
 -- -- example of running services deployed using `fluence deploy`
 -- -- with worker 'myDeployment' which has service 'MyService' with method 'greeting'
 
--- export runDeployedServices, showSubnet
+export runDeployedServicesHttp, runDeployedServicesIpfs --, showSubnet
 
--- data Answer:
-    -- answer: ?string
-    -- worker: Worker
+data Answer:
+    answer: ?string
+    worker: Worker
 
--- func runDeployedServices() -> []Answer:
-    -- deals <- Deals.get()
-    -- dealId = deals.myDeployment!.dealIdOriginal
-    -- answers: *Answer
-    -- on HOST_PEER_ID:
-        -- subnet <- Subnet.resolve(dealId)
-    -- if subnet.success == false:
-        -- Console.print(["Failed to resolve subnet: ", subnet.error])
+func runDeployedServicesHttp() -> []Answer:
+    deals <- Deals.get()
+    dealId = deals.myDeployment!.dealIdOriginal
+    answers: *Answer
+    on HOST_PEER_ID:
+        subnet <- Subnet.resolve(dealId)
+    if subnet.success == false:
+        Console.print(["Failed to resolve subnet: ", subnet.error])
 
-    -- for w <- subnet.workers:
-        -- if w.worker_id == nil:
-            -- answers <<- Answer(answer=nil, worker=w)
-        -- else:
-            -- on w.worker_id! via w.host_id:
-                -- answer <- MyService.greeting("fluence")
-                -- answers <<- Answer(answer=?[answer], worker=w)
+    for w <- subnet.workers:
+        if w.worker_id == nil:
+            answers <<- Answer(answer=nil, worker=w)
+        else:
+            on w.worker_id! via w.host_id:
+                answer <- MyRPC.simple_get_http("http://google.com")
+                answers <<- Answer(answer=?[answer], worker=w)
 
-    -- <- answers
+    <- answers
+
+func runDeployedServicesIpfs() -> []Answer:
+    deals <- Deals.get()
+    dealId = deals.myDeployment!.dealIdOriginal
+    answers: *Answer
+    on HOST_PEER_ID:
+        subnet <- Subnet.resolve(dealId)
+    if subnet.success == false:
+        Console.print(["Failed to resolve subnet: ", subnet.error])
+
+    for w <- subnet.workers:
+        if w.worker_id == nil:
+            answers <<- Answer(answer=nil, worker=w)
+        else:
+            on w.worker_id! via w.host_id:
+                answer <- MyRPC.simple_get_ipfs("/dns4/ipfs.fluence.dev/tcp/5001", "bafkreibezaflnu3lp34vpgvear4ni2ggdpbkcif7o5vrll7a6ldlfeiura")
+                answers <<- Answer(answer=?[answer], worker=w)
+
+    <- answers
+
 
 -- data WorkerServices:
     -- host_id: string

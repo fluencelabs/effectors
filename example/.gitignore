@@ -9,3 +9,8 @@ src/frontend/src/compiled-aqua/
 **/node_modules
 **/target/
 .repl_history
+/.fluence/workers.yaml
+/.fluence/aqua
+/.fluence/configs
+/.fluence/docker-compose.yaml
+/.fluence/provider-*
