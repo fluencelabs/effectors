@@ -9,3 +9,6 @@ version: 0
 type: rust
 
 name: myRPC
+
+volumes:
+  /tmp/vault: /tmp
