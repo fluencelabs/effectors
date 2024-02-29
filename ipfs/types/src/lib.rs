@@ -1,6 +1,7 @@
 use marine_rs_sdk::marine;
 
 #[marine]
+#[derive(Clone, Debug)]
 pub struct IpfsResult {
     pub success: bool,
     pub error: String,
@@ -28,6 +29,7 @@ impl <E: ToString> From<Option<E>> for IpfsResult {
 }
 
 #[marine]
+#[derive(Clone, Debug)]
 pub struct IpfsAddResult {
     pub success: bool,
     pub error: String,

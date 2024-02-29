@@ -1,0 +1,8 @@
+modules_dir = "target/wasm32-wasi/release/"
+total_memory_limit = "Infinity"
+
+[[module]]
+    name = "ipfs_effector"
+    logger_enabled = true
+    [module.mounted_binaries]
+    ipfs = "/usr/bin/ipfs"

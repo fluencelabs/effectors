@@ -1,20 +1,22 @@
 use marine_rs_sdk::marine;
 
 #[marine]
+#[derive(Clone, Debug)]
 pub struct HttpHeader {
     pub name: String,
     pub value: String,
 }
 
 #[marine]
+#[derive(Clone, Debug)]
 pub struct CurlRequest {
     pub url: String,
     pub headers: Vec<HttpHeader>,
     pub output_vault_path: String,
 }
 
-#[derive(Debug)]
 #[marine]
+#[derive(Clone, Debug)]
 pub struct CurlResult {
     pub success: bool,
     pub error: String,
@@ -40,13 +42,3 @@ impl <E: ToString> From<Option<E>> for CurlResult {
         }
     }
 }
-
-/*
-#[marine]
-#[module_import("curl_effector")]
-extern "C" {
-    pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult;
-
-    pub fn curl_get(request: CurlRequest) -> CurlResult;
-}
-*/
