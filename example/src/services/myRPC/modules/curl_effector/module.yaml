@@ -9,4 +9,4 @@ mountedBinaries:
   curl: /usr/bin/curl
 
 volumes:
-    /tmp: /tmp
+    /tmp/vault: /tmp
