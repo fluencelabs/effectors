@@ -17,6 +17,13 @@ bafkreig5td7jalnbsgff5egar7vvgsracqbpgxuxf5fjbexjzesbxii334
 
 Remove `2>/dev/null` and run the command again if you encounter any problems for debug output.
 
+# How to get the effector's CID manually
+
+You can use the IPFS binary yourself and call the following command:
+```
+ipfs add --only-hash -Q --cid-version 1 --hash sha2-256 --chunker=size-262144 $WASM_FILE_PATH
+```
+
 # How to use in your marine service
 
 Each effector provides the rust crate with relevant types and module import declaration.
