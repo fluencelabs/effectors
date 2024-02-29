@@ -97,7 +97,7 @@ pub fn curl_get(request: CurlRequest) -> CurlResult {
 #[marine]
 #[host_import]
 extern "C" {
-    /// Execute provided cmd as a parameters of ipfs cli, return result.
+    /// Execute provided cmd as a parameters of curl, return result.
     pub fn curl(cmd: Vec<String>) -> MountedBinaryResult;
 }
 

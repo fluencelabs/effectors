@@ -18,6 +18,10 @@ aquaDependencies:
   "@fluencelabs/aqua-lib": 0.9.1
   "@fluencelabs/spell": 0.6.9
 
+marineVersion: 0.19.7
+
+mreplVersion: 0.30.0
+
 compileAqua:
   default:
     input: src/aqua
@@ -27,4 +31,3 @@ compileAqua:
 services:
   myRPC:
     get: src/services/myRPC
-

@@ -11,3 +11,5 @@ name: myRPC
 modules:
   facade:
     get: modules/myRPC
+  curl_effector:
+    get: modules/curl_effector/

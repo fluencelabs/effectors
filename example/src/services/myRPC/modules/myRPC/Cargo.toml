@@ -9,7 +9,7 @@ path = "src/main.rs"
 
 [dependencies]
 marine-rs-sdk = { version = "0.14.0", features = ["logger"] }
-curl-effector-types = { git = "https://github.com/fluencelabs/effectors.git", branch = "introduce-crates"}
+curl-effector-types = { git = "https://github.com/fluencelabs/effectors.git", branch = "introduce-crates" }
 
 [dev-dependencies]
 marine-rs-sdk-test = "0.16.0"
