@@ -65,7 +65,7 @@ pub fn curl_post(request: CurlRequest, data_vault_path: String) -> CurlResult {
         String::from("-X"),
         String::from("POST"),
         String::from("--data"),
-        format!("@{}", data_vault_path),
+        format!("@{}", inject_vault_host_path(data_vault_path)),
         String::from("-o"),
         inject_vault_host_path(request.output_vault_path),
     ];
