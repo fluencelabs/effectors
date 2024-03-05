@@ -16,6 +16,19 @@ So you should use the local network to test it:
 5. `fluence run -f 'runDeployedServicesIpfs()'` to run the IPFS effector example
 
 
+### Example
+```
+$ fluence service repl myRPC
+...
+1> call myRPC simple_get_ipfs ["/dns4/ipfs.fluence.dev/tcp/5001", "bafkreibezaflnu3lp34vpgvear4ni2ggdpbkcif7o5vrll7a6ldlfeiura"]
+result: "<3\n"
+ elapsed time: 279.169667ms
+2> call myRPC simple_get_http ["http://google.com"]
+result: "<HTML><HEAD><meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<TITLE>301 Moved</TITLE></HEAD><BODY>\n<H1>301 Moved</H1>\nThe document has moved\n<A HREF=\"http://www.google.com/\">here</A>.\r\n</BODY></HTML>\r\n"
+ elapsed time: 124.668617ms
+
+```
+
 # How we use effector in this project
 
 ## File layout
