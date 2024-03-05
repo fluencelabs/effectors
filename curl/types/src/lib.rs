@@ -16,9 +16,6 @@ pub struct HttpHeader {
 pub struct CurlRequest {
     pub url: String,
     pub headers: Vec<HttpHeader>,
-    // The path in the Particle Vault with the result of the request.
-    // Note that the file is created when doesn't exist.
-    pub output_vault_path: String,
 }
 
 // A generic cURL call result

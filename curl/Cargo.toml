@@ -12,7 +12,7 @@ curl-effector-imports = { path = "imports" }
 curl_effector = { path = "effector" }
 curl-cid = { path = "cid" }
 
-marine-rs-sdk = { version = "0.13.0", features = ["logger"] }
-marine-rs-sdk-test = "0.15.0"
+marine-rs-sdk = { version = "0.14.0", features = ["logger"] }
+marine-rs-sdk-test = "0.16.0"
 
 eyre = "0.6.12"
