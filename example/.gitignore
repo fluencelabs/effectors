@@ -14,3 +14,4 @@ src/frontend/src/compiled-aqua/
 /.fluence/configs
 /.fluence/docker-compose.yaml
 /.fluence/provider-*
+src/compiled-aqua/

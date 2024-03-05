@@ -1,6 +1,5 @@
 #![allow(non_snake_case)]
 
-use std::path::Path;
 use marine_rs_sdk::marine;
 use marine_rs_sdk::module_manifest;
 
@@ -19,9 +18,8 @@ pub fn simple_get_http(url: String) -> String {
     let my_request = CurlRequest {
         url,
         headers: vec![],
-        output_vault_path: path.clone(),
     };
-    let result = curl::curl_get(my_request);
+    let result = curl::curl_get(my_request, path.clone());
     if result.success {
         match std::fs::read_to_string(&path) {
             Ok(result) => result,

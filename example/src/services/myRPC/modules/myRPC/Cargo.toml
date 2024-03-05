@@ -8,7 +8,7 @@ name = "myRPC"
 path = "src/main.rs"
 
 [dependencies]
-marine-rs-sdk = { version = "0.13.0", features = ["logger"] }
+marine-rs-sdk = { version = "0.14.0", features = ["logger"] }
 curl-effector-imports = { git = "https://github.com/fluencelabs/effectors.git", branch = "introduce-crates" }
 ipfs-effector-imports = { git = "https://github.com/fluencelabs/effectors.git", branch = "introduce-crates" }
 
