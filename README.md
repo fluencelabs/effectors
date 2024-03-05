@@ -1,9 +1,10 @@
-# Fluence Effectors
+# Effectors
 
 List of supported effectors:
 - IPFS: support only `get` and `add` commands
 - cURL: support only `post` and `get` HTTP requests types
 
+We use [Version 1 CIDs](https://docs.ipfs.tech/concepts/content-addressing/#cids-are-not-file-hashes) for effectors distribution.
 
 # How to get the effector's CID
 
