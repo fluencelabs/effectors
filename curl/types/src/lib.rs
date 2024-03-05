@@ -28,13 +28,13 @@ pub struct CurlResult {
     pub error: String,
 }
 
-impl <A, E: ToString> From<Result<A, E>> for CurlResult {
+impl<A, E: ToString> From<Result<A, E>> for CurlResult {
     fn from(res: Result<A, E>) -> Self {
         res.err().into()
     }
 }
 
-impl <E: ToString> From<Option<E>> for CurlResult {
+impl<E: ToString> From<Option<E>> for CurlResult {
     fn from(res: Option<E>) -> Self {
         match res {
             None => CurlResult {

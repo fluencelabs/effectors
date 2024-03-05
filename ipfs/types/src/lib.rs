@@ -7,13 +7,13 @@ pub struct IpfsResult {
     pub error: String,
 }
 
-impl <A, E: ToString> From<Result<A, E>> for IpfsResult {
+impl<A, E: ToString> From<Result<A, E>> for IpfsResult {
     fn from(result: Result<A, E>) -> Self {
-            result.err().into()
+        result.err().into()
     }
 }
 
-impl <E: ToString> From<Option<E>> for IpfsResult {
+impl<E: ToString> From<Option<E>> for IpfsResult {
     fn from(res: Option<E>) -> Self {
         match res {
             None => IpfsResult {
@@ -36,7 +36,7 @@ pub struct IpfsAddResult {
     pub hash: String,
 }
 
-impl <E: ToString> From<Result<String, E>> for IpfsAddResult {
+impl<E: ToString> From<Result<String, E>> for IpfsAddResult {
     fn from(result: Result<String, E>) -> Self {
         match result {
             Ok(hash) => Self {

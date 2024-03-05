@@ -6,7 +6,6 @@ publish = false
 
 [dependencies]
 eyre = { workspace = true }
-itertools = "0.12.1"
 log = "0.4.20"
 marine-rs-sdk = { workspace = true }
 curl-effector-types = { workspace = true }

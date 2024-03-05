@@ -1,5 +1,5 @@
-use marine_rs_sdk::marine;
 pub use curl_effector_types::*;
+use marine_rs_sdk::marine;
 
 #[marine]
 #[module_import("curl_effector")]
