@@ -13,4 +13,4 @@ curl-effector-imports = { git = "https://github.com/fluencelabs/effectors.git", 
 ipfs-effector-imports = { git = "https://github.com/fluencelabs/effectors.git", branch = "introduce-crates" }
 
 [dev-dependencies]
-marine-rs-sdk-test = "0.16.0"
+marine-rs-sdk-test = "0.16.1"
