@@ -127,12 +127,18 @@ fn check_url(url: String) -> Result<String> {
 
     if !ALLOW_SCHEMES.contains(&url.scheme()) {
         let scheme = url.scheme();
-        return Err(eyre!("{} scheme is forbidden, only http and https are allowed", scheme));
+        return Err(eyre!(
+            "{} scheme is forbidden, only http and https are allowed",
+            scheme
+        ));
     }
 
     if !ALLOW_PORTS.contains(&url.port().unwrap_or(80)) {
         let port = url.port().unwrap_or(80);
-        return Err(eyre!("{} port is forbidden, only 443 and 80 are allowed", port));
+        return Err(eyre!(
+            "{} port is forbidden, only 443 and 80 are allowed",
+            port
+        ));
     }
 
     Ok(url.to_string())
@@ -310,8 +316,11 @@ mod tests {
             .is_test(true)
             .try_init();
 
-        let opts = mockito::ServerOpts { port: 8080, ..Default::default() };
-        let mut server  = mockito::Server::new_with_opts(opts);
+        let opts = mockito::ServerOpts {
+            port: 8080,
+            ..Default::default()
+        };
+        let mut server = mockito::Server::new_with_opts(opts);
         let url = server.url();
         let expected_input = "{\"a\": \"c\"}";
         let expected_output = "{\"a\": \"b\"}";
@@ -383,8 +392,11 @@ mod tests {
             .is_test(true)
             .try_init();
 
-        let opts = mockito::ServerOpts { port: 8080, ..Default::default() };
-        let mut server  = mockito::Server::new_with_opts(opts);
+        let opts = mockito::ServerOpts {
+            port: 8080,
+            ..Default::default()
+        };
+        let mut server = mockito::Server::new_with_opts(opts);
 
         let url = server.url();
 
