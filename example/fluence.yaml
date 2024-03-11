@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=.fluence/schemas/fluence.json
+
+# Defines Fluence Project, most importantly - what exactly you want to deploy and how. You can use `fluence init` command to generate a template for new Fluence project
+
+# Documentation: https://github.com/fluencelabs/cli/tree/main/docs/configs/fluence.md
+
+version: 8
+
+deployments:
+  myDeployment:
+    targetWorkers: 3
+    pricePerWorkerEpoch: "0.0001"
+    initialBalance: "1"
+    services: [ myRPC ]
+    spells: []
+    effectors:
+        - bafybeicsldpufisivnyusku4v24uudat3ctaccb35s2577bfc5dprqprdi
+        - bafkreidgwozbvsfpq5kcebohvwvsrvhk2yaj6bcgc7du4o4oofxqfce6sy
+
+
+
+aquaDependencies:
+  "@fluencelabs/aqua-lib": 0.9.1
+  "@fluencelabs/spell": 0.6.9
+
+marineVersion: 0.19.7
+
+mreplVersion: 0.30.1
+
+compileAqua:
+  default:
+    input: src/aqua
+    output: src/compiled-aqua
+    target: ts
+
+services:
+  myRPC:
+    get: src/services/myRPC

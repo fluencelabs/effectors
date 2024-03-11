@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=../../../../../.fluence/schemas/module.json
+version: 0
+
+type: compiled
+
+name: ipfs_effector
+
+mountedBinaries:
+  ipfs: /usr/bin/ipfs
+
+volumes:
+    /tmp/vault: /tmp

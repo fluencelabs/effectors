@@ -1,0 +1,17 @@
+.idea
+.DS_Store
+/.fluence/secrets
+/.fluence/env.yaml
+/.fluence/schemas
+/.fluence/tmp
+/.fluence/aqua-dependencies/package.json
+src/frontend/src/compiled-aqua/
+**/node_modules
+**/target/
+.repl_history
+/.fluence/workers.yaml
+/.fluence/aqua
+/.fluence/configs
+/.fluence/docker-compose.yaml
+/.fluence/provider-*
+src/compiled-aqua/

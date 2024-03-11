@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=.fluence/schemas/provider.json
+
+# Defines config used for provider set up
+
+# Documentation: https://github.com/fluencelabs/cli/tree/main/docs/configs/provider.md
+
+version: 0
+
+providerName: defaultProvider
+
+nox:
+  effectors:
+    curl:
+      wasmCID: bafybeicsldpufisivnyusku4v24uudat3ctaccb35s2577bfc5dprqprdi
+      allowedBinaries:
+        curl: /usr/bin/curl
+    ipfs:
+      wasmCID: bafkreidgwozbvsfpq5kcebohvwvsrvhk2yaj6bcgc7du4o4oofxqfce6sy
+      allowedBinaries:
+        ipfs: /usr/bin/ipfs
+
+computePeers:
+  nox-0:
+    computeUnits: 32
+  nox-1:
+    computeUnits: 32
+  nox-2:
+    computeUnits: 32
+
+offers:
+  defaultOffer:
+    minPricePerWorkerEpoch: "0.00001"
+    computePeers:
+      - nox-0
+      - nox-1
+      - nox-2
+    effectors:
+      - bafkreidgwozbvsfpq5kcebohvwvsrvhk2yaj6bcgc7du4o4oofxqfce6sy
+      - bafybeiazogjvmbfjpg3dtk4jtjqq2oi53ufb24fyzcgeo7ugw3nc565ncm
+
+capacityCommitments:
+  nox-0:
+    duration: 100 days
+    rewardDelegationRate: 7
+  nox-1:
+    duration: 100 days
+    rewardDelegationRate: 7
+  nox-2:
+    duration: 100 days
+    rewardDelegationRate: 7

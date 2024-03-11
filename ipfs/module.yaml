@@ -2,7 +2,7 @@ version: 0
 
 # type: rust
 
-name: aqua_ipfs_adapter
+name: ipfs_effector
 
 mountedBinaries:
   curl: /usr/bin/ipfs

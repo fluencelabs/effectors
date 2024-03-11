@@ -1,0 +1,6 @@
+aqua Services declares *
+
+
+service MyRPC("myRPC"):
+  simple_get_http(url: string) -> string
+  simple_get_ipfs(ipfs_api: string, cid: string) -> string

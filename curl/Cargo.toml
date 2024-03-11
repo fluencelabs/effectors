@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = [
+	"effector",
+	"types",
+	"cid",
+	"imports",
+]
+[workspace.dependencies]
+curl-effector-types = { path = "types" }
+curl-effector-imports = { path = "imports" }
+curl_effector = { path = "effector" }
+curl-cid = { path = "cid" }
+
+marine-rs-sdk = { version = "0.14.0", features = ["logger"] }
+marine-rs-sdk-test = "0.16.1"
+
+eyre = "0.6.12"
