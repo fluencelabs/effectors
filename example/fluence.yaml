@@ -14,8 +14,10 @@ deployments:
     services: [ myRPC ]
     spells: []
     effectors:
-      - bafkreig5td7jalnbsgff5egar7vvgsracqbpgxuxf5fjbexjzesbxii334
-      - bafkreieyafu35yrqn44vdivs4vadju3ej5shzkcm3gipzcv7tl4wv22eba
+        - bafybeicsldpufisivnyusku4v24uudat3ctaccb35s2577bfc5dprqprdi
+        - bafkreidgwozbvsfpq5kcebohvwvsrvhk2yaj6bcgc7du4o4oofxqfce6sy
+
+
 
 aquaDependencies:
   "@fluencelabs/aqua-lib": 0.9.1
