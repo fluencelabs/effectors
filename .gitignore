@@ -15,10 +15,8 @@ Cargo.lock
 *.pdb
 .idea/
 **/.repl_history
-
 .DS_Store
-**/.fluence/secrets
-**/.fluence/env.yaml
+
+# Fluence CLI
 **/.fluence/schemas
 **/.fluence/tmp
-**/.fluence/aqua-dependencies/package.json
