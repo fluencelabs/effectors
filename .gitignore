@@ -15,3 +15,8 @@ Cargo.lock
 *.pdb
 .idea/
 **/.repl_history
+.DS_Store
+
+# Fluence CLI
+**/.fluence/schemas
+**/.fluence/tmp
