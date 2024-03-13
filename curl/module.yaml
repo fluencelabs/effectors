@@ -1,6 +1,7 @@
+# yaml-language-server: $schema=.fluence/schemas/module.json
 version: 0
 
-# type: rust
+type: rust
 
 name: curl_effector
 
