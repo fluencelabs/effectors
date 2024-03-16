@@ -1,9 +1,10 @@
 # yaml-language-server: $schema=.fluence/schemas/module.json
-version: 0
+version: 1
 
 type: rust
 
 name: ipfs_effector
 
-mountedBinaries:
-  curl: /usr/bin/ipfs
+effects:
+  binaries:
+    curl: /usr/bin/ipfs
