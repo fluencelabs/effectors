@@ -20,3 +20,4 @@ Cargo.lock
 # Fluence CLI
 **/.fluence/schemas
 **/.fluence/tmp
+**/.fluence

@@ -12,6 +12,6 @@ modules:
   facade:
     get: modules/myRPC
   curl_effector:
-    get: modules/curl_effector/
+    get: https://github.com/fluencelabs/curl-effector/releases/download/effector-v0.1.1/curl_effector.tar.gz
   ipfs_effector:
-    get: modules/ipfs_effector/
+    get: https://github.com/fluencelabs/ipfs-effector/releases/download/effector-v0.1.1/ipfs_effector.tar.gz
