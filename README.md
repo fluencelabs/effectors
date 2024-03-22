@@ -56,3 +56,7 @@ If you want to manually validate the CID of the module, you can:
 
 In the `example/`, you may find the ways to import the module into your project and use in the facade module.
 Read `example/README.md` for more details.
+
+# How to start developing the effectors
+
+We prepared the [effector-template](https://github.com/fluencelabs/effector-template/) repository to serve as a basic effector template. We build our cURL and IPFS effector on top of this template as an example.
