@@ -1,9 +1,10 @@
 # yaml-language-server: $schema=.fluence/schemas/module.json
-version: 0
+version: 1
 
 type: rust
 
 name: curl_effector
 
-mountedBinaries:
-  curl: /usr/bin/curl
+effects:
+  binaries:
+    curl: /usr/bin/curl
