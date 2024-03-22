@@ -12,7 +12,7 @@ cURL     | [latest](https://github.com/fluencelabs/curl-effector/releases/latest
 Let's add the cURL effector to your [Fluence CLI](https://fluence.dev/docs/build/setting-up/installing_cli) project.
 
 All information you need to add an effector to your project is located in the latest release description of the effector:
-![cURL effector release page]
+![cURL effector release page](./assets/release_page_example.png)
 
 The *CIDv1* field can help you find providers in the explorer for this particular effector.
 
