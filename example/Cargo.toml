@@ -1,2 +1,8 @@
 [workspace]
 members = [ "src/services/myRPC/modules/myRPC" ]
+
+[workspace.dependencies.curl-effector-imports]
+version = "0.1.1"
+
+[workspace.dependencies.ipfs-effector-imports]
+version = "0.1.1"

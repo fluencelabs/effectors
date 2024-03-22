@@ -11,11 +11,11 @@ providerName: defaultProvider
 nox:
   effectors:
     curl:
-      wasmCID: bafybeicsldpufisivnyusku4v24uudat3ctaccb35s2577bfc5dprqprdi
+      wasmCID: bafybeibtqlh4fzsw725geplcebtlz2mw5xaxvybmq2gbm56ww47gna2yua
       allowedBinaries:
         curl: /usr/bin/curl
     ipfs:
-      wasmCID: bafkreidgwozbvsfpq5kcebohvwvsrvhk2yaj6bcgc7du4o4oofxqfce6sy
+      wasmCID: bafkreidl5wvds3eo3puwfjygvcjmgytfge3hkli6yumld3z54noahz4ana
       allowedBinaries:
         ipfs: /usr/bin/ipfs
 
@@ -35,8 +35,8 @@ offers:
       - nox-1
       - nox-2
     effectors:
-      - bafkreidgwozbvsfpq5kcebohvwvsrvhk2yaj6bcgc7du4o4oofxqfce6sy
-      - bafybeiazogjvmbfjpg3dtk4jtjqq2oi53ufb24fyzcgeo7ugw3nc565ncm
+      - bafybeibtqlh4fzsw725geplcebtlz2mw5xaxvybmq2gbm56ww47gna2yua
+      - bafkreidl5wvds3eo3puwfjygvcjmgytfge3hkli6yumld3z54noahz4ana
 
 capacityCommitments:
   nox-0:
