@@ -1,10 +1,10 @@
 # Effectors
 
 List of supported effectors:
-Effector | Latest Effector Package| Rust Binding Crate | Rust CID Crate |
----------|------------------------|--------------------|----------------|
-IPFS     | [latest](https://github.com/fluencelabs/ipfs-effector/releases/latest) | [ipfs-effector-imports](https://crates.io/crates/ipfs-effector-imports) | [ipfs-effector-cid](https://crates.io/crates/ipfs-effector-cid) |
-cURL     | [latest](https://github.com/fluencelabs/curl-effector/releases/latest) | [curl-effector-imports](https://crates.io/crates/curl-effector-imports) | [curl-effector-cid](https://crates.io/crates/curl-effector-cid) |
+Effector | GitHub Repo | Latest Package| Rust Binding Crate | Rust CID Crate |
+---------|:---:|:------------------------:|:--------------------:|:----------------:|
+IPFS     | [fluencelabs/ipfs-effector](https://github.com/fluencelabs/ipfs-effector) | [GitHub Release](https://github.com/fluencelabs/ipfs-effector/releases/latest) | [ipfs-effector-imports](https://crates.io/crates/ipfs-effector-imports) | [ipfs-effector-cid](https://crates.io/crates/ipfs-effector-cid) |
+cURL     | [fluencelabs/curl-effector](https://github.com/fluencelabs/curl-effector) | [GitHub Release](https://github.com/fluencelabs/curl-effector/releases/latest) | [curl-effector-imports](https://crates.io/crates/curl-effector-imports) | [curl-effector-cid](https://crates.io/crates/curl-effector-cid) |
 
 
 # How to add an effector to your project
